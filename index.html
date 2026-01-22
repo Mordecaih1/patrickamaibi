@@ -7,30 +7,39 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Mono&display=swap" rel="stylesheet">
     
     <style>
         :root {
+            /* Dark Theme (Default) */
             --bg: #0E0F11;
             --text: #F5F7F9;
-            --accent: #2BFF88; /* Electric Green */
+            --accent: #2BFF88;
             --secondary: #8A8F98;
             --card-bg: #16171a;
-            --border: rgba(138, 143, 152, 0.15);
-            --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --border: rgba(138, 143, 152, 0.2);
+            --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         [data-theme="light"] {
             --bg: #F5F7F9;
             --text: #0E0F11;
             --accent: #00A34A;
-            --secondary: #5A5F68;
+            --secondary: #4A4F58;
             --card-bg: #ffffff;
             --border: rgba(14, 15, 17, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: var(--bg);
             color: var(--text);
@@ -40,103 +49,202 @@
             overflow-x: hidden;
         }
 
-        .mono { font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); }
+        .mono { font-family: 'Space Mono', monospace; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
 
+        /* Background Motif */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
-            background-size: 50px 50px;
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
             z-index: -1;
-            opacity: 0.4;
+            opacity: 0.5;
         }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
-        section { padding: 6rem 0; border-bottom: 1px solid var(--border); }
+        /* Layout */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
 
+        section {
+            padding: 8rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Header */
         header {
             position: fixed;
             top: 0; width: 100%;
-            z-index: 1000;
-            background: rgba(14, 15, 17, 0.85);
-            backdrop-filter: blur(12px);
+            z-index: 100;
+            background: rgba(14, 15, 17, 0.8);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border);
         }
-        [data-theme="light"] header { background: rgba(245, 247, 249, 0.85); }
+        [data-theme="light"] header { background: rgba(245, 247, 249, 0.8); }
 
-        nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
-        .logo { font-weight: 800; font-family: 'Space Mono', monospace; font-size: 0.9rem; cursor: pointer; }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo { font-weight: 600; font-size: 1.2rem; cursor: pointer; }
 
         .nav-links { display: flex; gap: 2rem; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--secondary); transition: var(--transition); font-size: 0.85rem; }
+        .nav-links a { 
+            text-decoration: none; 
+            color: var(--secondary); 
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
         .nav-links a:hover { color: var(--accent); }
 
         .theme-toggle {
-            background: var(--card-bg);
+            background: none;
             border: 1px solid var(--border);
             color: var(--text);
-            padding: 8px;
+            padding: 0.5rem;
             cursor: pointer;
-            border-radius: 6px;
+            border-radius: 4px;
             display: flex;
             align-items: center;
-        }
-
-        /* Hero */
-        #hero { padding-top: 10rem; min-height: 85vh; display: flex; flex-direction: column; justify-content: center; }
-        .profile-img { width: 120px; height: 120px; border-radius: 12px; object-fit: cover; border: 1px solid var(--border); filter: grayscale(100%); transition: var(--transition); margin-bottom: 2rem; }
-        .profile-img:hover { filter: grayscale(0%); border-color: var(--accent); }
-
-        h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 1.5rem; font-weight: 800; letter-spacing: -0.03em; }
-        .subhead { font-size: 1.4rem; color: var(--text); margin-bottom: 1.5rem; font-weight: 600; }
-        .hero-para { max-width: 650px; font-size: 1.15rem; margin-bottom: 3rem; color: var(--secondary); }
-
-        .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
-        .btn { padding: 0.8rem 1.8rem; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: var(--transition); border-radius: 4px; }
-        .btn-primary { background: var(--accent); color: #0E0F11; border: 1px solid var(--accent); }
-        .btn-secondary { border: 1px solid var(--border); color: var(--text); }
-        
-        /* The Snake Link Styling */
-        .challenge-link {
-            font-family: 'Space Mono', monospace;
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 0.85rem;
-            padding: 0.7rem 1.2rem;
-            border: 1px dashed var(--accent);
-            border-radius: 4px;
             transition: var(--transition);
         }
-        .challenge-link:hover {
-            background: rgba(43, 255, 136, 0.1);
-            box-shadow: 0 0 15px rgba(43, 255, 136, 0.2);
-            transform: translateY(-2px);
+        .theme-toggle:hover { border-color: var(--accent); }
+
+        /* Hero */
+        #hero { 
+            padding-top: 12rem;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .hero-tag { color: var(--accent); margin-bottom: 1rem; display: block; }
+        h1 { font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem; font-weight: 600; }
+        .subhead { font-size: 1.5rem; color: var(--secondary); margin-bottom: 2rem; max-width: 600px; }
+        .hero-para { max-width: 600px; font-size: 1.1rem; margin-bottom: 3rem; color: var(--secondary); }
+
+        .cta-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn {
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border-radius: 2px;
+            display: inline-block;
+        }
+        .btn-primary { background: var(--accent); color: #0E0F11; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px -10px var(--accent); }
+        .btn-secondary { border: 1px solid var(--border); color: var(--text); }
+        .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* About */
+        .quote {
+            font-size: 1.8rem;
+            font-style: italic;
+            border-left: 3px solid var(--accent);
+            padding-left: 2rem;
+            margin: 4rem 0;
+            color: var(--text);
+            font-weight: 300;
         }
 
-        .role-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem;}
-        .role-card { padding: 2.5rem; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; transition: var(--transition); }
-        .role-card:hover { border-color: var(--accent); transform: translateY(-8px); }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
 
-        .project-item { padding: 2.5rem; border: 1px solid var(--border); background: var(--card-bg); border-radius: 8px; margin-bottom: 1.5rem; }
-        
-        .writing-card { background: var(--card-bg); padding: 1.5rem; border: 1px solid var(--border); margin-bottom: 1rem; text-decoration: none; display: block; color: inherit; transition: var(--transition); }
-        .writing-card:hover { border-color: var(--accent); transform: translateX(10px); }
+        /* Roles / What I Do */
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .role-card {
+            padding: 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        .role-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .role-card h3 { margin-bottom: 1rem; color: var(--accent); }
 
-        .connect-links { display: flex; gap: 2.5rem; margin-top: 3rem; flex-wrap: wrap; }
-        .connect-links a { color: var(--text); text-decoration: none; font-family: 'Space Mono', monospace; border-bottom: 1px solid var(--accent); padding-bottom: 4px; transition: var(--transition); }
+        /* Projects */
+        .project-list { margin-top: 3rem; }
+        .project-item {
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            transition: var(--transition);
+        }
+        .project-item:hover { color: var(--accent); }
+        .project-item h3 { font-size: 1.5rem; }
+        .project-tags { display: flex; gap: 0.5rem; margin-top: 0.5rem; opacity: 0.7; }
 
-        footer { padding: 4rem 0; text-align: center; border-top: 1px solid var(--border); color: var(--secondary); font-size: 0.75rem; font-family: 'Space Mono', monospace; }
+        /* Writing */
+        .writing-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-left: 2px solid var(--border);
+            margin-bottom: 1rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .writing-card:hover { border-left-color: var(--accent); background: rgba(43, 255, 136, 0.05); }
 
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        /* Connect */
+        .connect-links {
+            display: flex;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .connect-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.2rem;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 4px;
+            transition: var(--transition);
+        }
+        .connect-links a:hover { opacity: 0.7; letter-spacing: 1px; }
 
+        /* Footer */
+        footer {
+            padding: 4rem 0;
+            text-align: center;
+            color: var(--secondary);
+            font-size: 0.8rem;
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .nav-links { display: none; }
+            .grid-2 { grid-template-columns: 1fr; gap: 2rem; }
+            .project-item { grid-template-columns: 1fr; gap: 0.5rem; }
+            .nav-links { display: none; } /* Simplified for demo */
             #hero { padding-top: 8rem; }
-            .btn-group { flex-direction: column; align-items: flex-start; }
-            .challenge-link { width: 100%; text-align: center; }
+            section { padding: 4rem 0; }
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -145,15 +253,15 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">PATRICK_AMAIBI <span style="color:var(--accent)">.SYS</span></div>
+                <div class="logo mono" onclick="window.scrollTo(0,0)">PA (GREEN NINJA)</div>
                 <div class="nav-links">
                     <a href="#about">About</a>
-                    <a href="#expertise">Capabilities</a>
                     <a href="#work">Work</a>
+                    <a href="#writing">Writing</a>
                     <a href="#connect">Connect</a>
-                    <button class="theme-toggle" id="theme-btn">
-                        <svg id="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line></svg>
-                        <svg id="moon-icon" style="display:none" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <button class="theme-toggle" id="theme-btn" aria-label="Toggle Theme">
+                        <svg id="sun-icon" style="display:none" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg id="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                     </button>
                 </div>
             </nav>
@@ -162,64 +270,131 @@
 
     <main class="container">
         
+        <!-- Section 1: Hero -->
         <section id="hero">
-            <img src="headshot.jpg" alt="Patrick Amaibi" class="profile-img">
-            <span class="mono">Systems // Web3 // AI</span>
-            <h1>Building practical systems at the edge of AI and real-world constraints.</h1>
-            <p class="subhead">Engineer by training. Operator by instinct.</p>
-            <p class="hero-para">I explore how emerging technologies can be grounded in reality. I build things that make sense after the excitement fades.</p>
-            <div class="btn-group">
+            <img src="headshot.jpg" alt="" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 1rem;">
+            <span class="mono hero-tag">Available for strategic builds</span>
+            <h1>Building practical systems at the edge of AI, Web3, and real-world constraints.</h1>
+            <p class="subhead">Engineer by training. Operator by instinct. Curious by default.</p>
+            <p class="hero-para">I explore how emerging technologies AI, decentralized finance, and digital coordination can be grounded in reality. I’m here to build things that make sense after the excitement fades.</p>
+            <div class="cta-group">
                 <a href="#work" class="btn btn-primary">See What I’m Building</a>
                 <a href="#connect" class="btn btn-secondary">Let’s Connect</a>
-                <a href="snake.html" class="challenge-link">Challenge Me at Snake 🐍</a>
             </div>
         </section>
 
+        <!-- Section 2: About -->
         <section id="about" class="reveal">
             <span class="mono">01. Origin</span>
-            <div style="margin-top:2rem">
-                <h2 style="font-size: 1.8rem; margin-bottom: 2rem;">I started with systems that touch the physical world.</h2>
-                <p style="color: var(--secondary); max-width: 700px;">My background is in environmental engineering and logistics, where abstraction breaks quickly. That foundation shaped my tech approach: skeptical of buzzwords, obsessed with whether something actually works.</p>
+            <div class="grid-2">
+                <div>
+                    <h2 style="margin-top: 1rem;">I didn’t start in Web3 or AI I started with systems that touch the physical world.</h2>
+                </div>
+                <div>
+                    <p style="color: var(--secondary); margin-bottom: 1.5rem;">My background is in environmental engineering, with real experience in logistics and operations, where inefficiencies are expensive and abstraction breaks quickly.</p>
+                    <p style="color: var(--secondary);">That foundation shaped how I approach technology today: skeptical of buzzwords, interested in incentives, and obsessed with whether something actually works.</p>
+                </div>
+            </div>
+            <div class="quote">
+                “Good systems don’t need constant explanation. They explain themselves by working.”
             </div>
         </section>
 
+        <!-- Section 3: What I Do -->
         <section id="expertise" class="reveal">
             <span class="mono">02. Capabilities</span>
             <div class="role-grid">
                 <div class="role-card">
-                    <h3>Research</h3>
-                    <p>Analyzing protocols and AI-enabled financial systems with a focus on incentives and long-term sustainability.</p>
+                    <span class="mono">Research</span>
+                    <h3>Systems Thinking</h3>
+                    <p>Analyzing protocols and AI-enabled financial systems with a focus on incentives, failure modes, and long-term sustainability.</p>
                 </div>
                 <div class="role-card">
-                    <h3>Execution</h3>
-                    <p>Using AI tools to prototype, test, and iterate quickly—turning complex ideas into working artifacts.</p>
+                    <span class="mono">Execution</span>
+                    <h3>Building & Experimentation</h3>
+                    <p>Using AI tools to prototype, test, and iterate quickly turning ideas into working artifacts instead of decks.</p>
                 </div>
                 <div class="role-card">
-                    <h3>Critique</h3>
-                    <p>Breaking assumptions and giving feedback that helps projects mature instead of just marketing better.</p>
+                    <span class="mono">Analysis</span>
+                    <h3>Testing & Critique</h3>
+                    <p>Breaking assumptions, questioning narratives, and giving feedback that helps projects mature instead of just marketing better.</p>
                 </div>
             </div>
         </section>
 
+        <!-- Section 4: Projects -->
         <section id="work" class="reveal">
             <span class="mono">03. Proof of Work</span>
-            <div style="margin-top:3rem">
+            <div class="project-list">
                 <div class="project-item">
-                    <h3>MAITRIX Intelligent Stablecoins</h3>
-                    <p style="color: var(--secondary)">Exploring where AI meets money and what breaks first.</p>
+                    <h3>MAITRIX</h3>
+                    <div>
+                        <p><strong>Intelligent Stablecoins.</strong> Exploring how AI projects can issue stable assets backed by native tokens. Exploring where AI meets money and what breaks first.</p>
+                        <div class="project-tags mono">AI / DEFI / RISK</div>
+                    </div>
                 </div>
                 <div class="project-item">
-                    <h3>Personal Experiments</h3>
-                    <p style="color: var(--secondary); margin-bottom: 1.5rem;">AI-assisted research workflows and stress-testing Web3 products.</p>
-                    <a href="snake.html" class="challenge-link">Play Snake Experiment 🐍</a>
+                    <h3>GREEN INITIATIVES</h3>
+                    <div>
+                        <p><strong>Green Development.</strong> Initiatives focused on sustainable development and operational execution. Grounded in real-world constraints and organizational complexity.</p>
+                        <div class="project-tags mono">INFRASTRUCTURE / OPS</div>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <h3>Experiments</h3>
+                    <div>
+                        <p>AI-assisted research workflows, rapid prototyping with LLMs, and stress-testing Web3 products as a "skeptical user."</p>
+                        <div class="project-tags mono">LLMS / TESTING</div>
+                    </div>
+                </div>
+            </div>
+            <p class="mono" style="margin-top: 2rem; opacity: 0.6;">“I don’t collect opinions. I collect experiments.”</p>
+        </section>
+
+        <!-- Section 5: Writing -->
+        <section id="writing" class="reveal">
+            <span class="mono">04. Discourse</span>
+            <div class="grid-2" style="margin-top: 2rem;">
+                <div>
+                    <h2>Short-form thoughts on systems that survive contact with reality.</h2>
+                </div>
+                <div>
+                    <div class="writing-card">
+                        <span class="mono">Note 01</span>
+                        <p>Web3 systems that are underestimated or overhyped.</p>
+                    </div>
+                    <div class="writing-card">
+                        <span class="mono">Note 02</span>
+                        <p>AI as an operational tool, not magic.</p>
+                    </div>
+                    <div class="writing-card">
+                        <span class="mono">Note 03</span>
+                        <p>Why many “innovations” fail when they meet real users.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- Section 6: Design & Print -->
+        <section id="design" class="reveal">
+            <span class="mono">05. Tangible Form</span>
+            <div class="grid-2">
+                <div>
+                    <h2>Design & Print Brand</h2>
+                </div>
+                <div>
+                    <p style="color: var(--secondary);">Alongside technical work, I explore how ideas translate into physical form. It’s a reminder that not everything meaningful lives on a screen and that aesthetics matter even in technical systems.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Connect -->
         <section id="connect" class="reveal" style="border-bottom: none;">
-            <span class="mono">04. Contact</span>
-            <h2 style="font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; margin: 2rem 0;">Signal finds signal.</h2>
-            <div class="connect-links">
+            <span class="mono">06. Contact</span>
+            <h2 style="font-size: 3rem; margin: 2rem 0;">Signal finds signal.</h2>
+            <p style="max-width: 600px; color: var(--secondary);">If you’re building AI x finance, Web3 infrastructure, or systems that must survive contact with reality, I’m always open to thoughtful conversations.</p>
+            
+            <div class="connect-links mono">
                 <a href="mailto:patrickamaibi@gmail.com">Email</a>
                 <a href="https://x.com/0xgreenninja" target="_blank">Twitter/X</a>
                 <a href="https://www.linkedin.com/in/patrickamaibi/" target="_blank">LinkedIn</a>
@@ -230,11 +405,12 @@
 
     <footer>
         <div class="container">
-            <p>© 2024 PATRICK AMAIBI — BUILT TO COMPOUND</p>
+            <p class="mono">© 2024 PATRICK AMAIBI — BUILT TO COMPOUND</p>
         </div>
     </footer>
 
     <script>
+        // Theme Toggle Logic
         const themeBtn = document.getElementById('theme-btn');
         const sunIcon = document.getElementById('sun-icon');
         const moonIcon = document.getElementById('moon-icon');
@@ -253,13 +429,29 @@
             }
         });
 
+        // Initialize icon visibility based on default dark theme
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+
+        // Scroll Reveal Animation
+        const observerOptions = {
+            threshold: 0.1
+        };
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
             });
-        }, { threshold: 0.1 });
+        }, observerOptions);
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Smooth Scrolling for Logo
+        document.querySelector('.logo').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     </script>
 </body>
 </html>
